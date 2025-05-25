@@ -1,2 +1,11 @@
-# zenmcp
-A lightweight, fast Go framework for building Model Context Protocol (MCP) servers
+# ZenMCP - Minimalist Go Framework for MCP Servers
+
+A lightweight, high-performance Go framework for building Model Context Protocol servers. 
+Designed with Go's philosophy of simplicity in mind - write less code, deploy faster, 
+scale effortlessly.
+
+✨ Zero external dependencies
+🚀 Single binary deployment  
+⚡ High performance with low memory footprint
+🔧 Simple, intuitive API
+🌍 Cross-platform support
