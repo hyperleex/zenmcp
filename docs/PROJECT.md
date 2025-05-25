@@ -78,8 +78,7 @@
 ---
 
 ## 5 Roadmap Snapshot
-
-Milestones → see `docs/ROADMAP.md`. Current focus: **Stage 1**.
+ Current focus: **Stage 2**.
 
 ---
 

@@ -1,9 +1,7 @@
 package mcp
 
 import (
-	"context"
 	"testing"
-	"time"
 
 	"github.com/hyperleex/zenmcp/registry"
 	"github.com/hyperleex/zenmcp/runtime"
