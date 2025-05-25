@@ -121,6 +121,10 @@ func (s *Server) handleConnection(ctx context.Context, conn transport.Connection
 		
 		var msg json.RawMessage
 		if err := codec.Decode(&msg); err != nil {
+			if err.Error() == "EOF" {
+				// EOF is expected when client disconnects
+				return
+			}
 			s.options.Logger.Printf("decode error: %v", err)
 			return
 		}

@@ -75,6 +75,10 @@ func (c *LengthPrefixedCodec) Decode(v interface{}) error {
 			return err
 		}
 		
+		if len(line) == 0 {
+			continue
+		}
+		
 		line = line[:len(line)-1] // Remove \n
 		if line == "\r" || line == "" {
 			break

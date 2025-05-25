@@ -9,7 +9,8 @@ import (
 )
 
 type Transport struct {
-	codec protocol.Codec
+	codec    protocol.Codec
+	accepted bool
 }
 
 func New() *Transport {
@@ -17,6 +18,12 @@ func New() *Transport {
 }
 
 func (t *Transport) Accept(ctx context.Context) (transport.Connection, error) {
+	if t.accepted {
+		// stdio transport can only have one connection
+		<-ctx.Done()
+		return nil, ctx.Err()
+	}
+	
 	if t.codec == nil {
 		rwc := &stdioReadWriteCloser{
 			reader: os.Stdin,
@@ -25,6 +32,7 @@ func (t *Transport) Accept(ctx context.Context) (transport.Connection, error) {
 		t.codec = protocol.NewLengthPrefixedCodec(rwc)
 	}
 	
+	t.accepted = true
 	return transport.NewConnection(ctx, t.codec), nil
 }
 
