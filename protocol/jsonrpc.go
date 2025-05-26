@@ -32,24 +32,28 @@ type RequestID struct {
 }
 
 func (r *RequestID) UnmarshalJSON(data []byte) error {
+	// Check for JSON null first
+	if string(data) == "null" {
+		r.value = nil
+		return nil
+	}
+
+	// Try to unmarshal as string
 	var str string
 	if err := json.Unmarshal(data, &str); err == nil {
 		r.value = str
 		return nil
 	}
 	
+	// Try to unmarshal as number (float64)
 	var num float64
 	if err := json.Unmarshal(data, &num); err == nil {
 		r.value = num
 		return nil
 	}
 	
-	if string(data) == "null" {
-		r.value = nil
-		return nil
-	}
-	
-	return fmt.Errorf("invalid request ID type")
+	// If none of the above, it's an invalid type for RequestID
+	return fmt.Errorf("invalid request ID type: %s", string(data))
 }
 
 func (r *RequestID) MarshalJSON() ([]byte, error) {
